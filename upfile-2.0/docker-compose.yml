@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  # ===== Go 文件服务器 =====
+  file-server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: upfile-go
+    ports:
+      - "9102:9102"
+    environment:
+      - GIN_MODE=release
+      - CONFIG_FILE=/app/config.yaml
+      # 可通过环境变量覆盖配置
+      # - FILE_SERVER_JWT_SECRET=your-very-secure-jwt-secret
+    volumes:
+      - ./data:/app/data           # SQLite 数据库持久化
+      - ./uploads:/app/uploads     # 文件存储持久化
+    restart: always
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:9102/api/auth/login", "--post-data", "{}"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  # ===== Nginx 反向代理 =====
+  nginx:
+    image: nginx:alpine
+    container_name: upfile-nginx
+    ports:
+      - "9110:9110"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/upfile.conf:ro
+      - ./web/dist:/usr/share/nginx/html:ro
+    depends_on:
+      - file-server
+    restart: always

@@ -1,0 +1,89 @@
+# =======================================================
+# Git 忽略规则配置 (全面屏蔽大文件、依赖与临时编译产物)
+# =======================================================
+
+# ========== 操作系统与通用临时文件 ==========
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Icon?
+*.tmp
+*.temp
+*.bak
+*.swp
+*.swo
+*~
+
+# ========== 开发工具与 IDE ==========
+.idea/
+.vscode/
+*.iml
+*.iws
+*.ipr
+.settings/
+.project
+.classpath
+.qoder/
+.gemini/
+
+# ========== 核心屏蔽：二进制大文件与打包发布产物 ==========
+*.tar.gz
+*.tar
+*.gz
+*.tgz
+*.zip
+*.rar
+*.7z
+*.iso
+*.dmg
+*.pkg
+
+# 离线构建与发布输出目录
+upfile-2.0/upd/
+upfile-2.0/docker/upfile-offline-linux-amd64/
+upfile-2.0/docker/images/
+upfile-2.0/docker/*.tar.gz
+upfile-2.0/*.tar.gz
+dabao/
+
+# ========== 前端项目 (web/) ==========
+web/node_modules/
+web/dist/
+web/dist-ssr/
+web/*.local
+web/.eslintcache
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# 前端构建同步产物（只保留源码与基础结构）
+upfile-2.0/docker/html/assets/
+
+# ========== 后端项目 (upfile-2.0 / Go) ==========
+upfile-2.0/server-go/fileserver*
+upfile-2.0/server-go/data/*.db*
+upfile-2.0/server-go/data/*.db-wal
+upfile-2.0/server-go/data/*.db-shm
+upfile-2.0/server-go/uploads/
+
+# ========== Docker 运行时与持久化存储 ==========
+upfile-2.0/docker/data/*.db*
+upfile-2.0/docker/data/*.db-wal
+upfile-2.0/docker/data/*.db-shm
+upfile-2.0/docker/uploads/files/*
+!upfile-2.0/docker/uploads/files/.gitkeep
+upfile-2.0/docker/uploads/chunks/*
+!upfile-2.0/docker/uploads/chunks/.gitkeep
+upfile-2.0/docker/**
+nginx
+
+# 根目录与全局数据
+data/
+uploads/
+*.bin

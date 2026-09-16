@@ -1,0 +1,12 @@
+server:
+  port: 9102
+
+file_server:
+  upload_dir: ./uploads/files
+  chunk_dir: ./uploads/chunks
+  jwt_secret: file-server-secret-key-2024
+  jwt_expire_hours: 72
+  admin_user: admin
+  admin_pass: "L@#$12345699101"
+  max_chunk_mb: 100
+  db_path: ./data/fileserver.db

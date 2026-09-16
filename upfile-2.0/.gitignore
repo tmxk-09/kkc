@@ -1,0 +1,16 @@
+# Go
+server-go/vendor/
+server-go/*.exe
+server-go/fileserver
+
+# Data & uploads
+data/
+uploads/
+
+# Web build
+web/node_modules/
+web/dist/
+
+# Misc
+.DS_Store
+*.log
